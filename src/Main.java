@@ -188,20 +188,23 @@ public class Main {
         insert.close();
     }
 
-    static void stepNext(Scanner insert, Set<Product> newSet, Set<Product> product, Set<Product> allProducts) {
+    static void stepNext(Scanner insert, Set<Product> filtredProducts, Set<Product> product, Set<Product> allProducts) {
         System.out.println("Чтобы начать поиск по новой введите 'start'. Чтобы продолжить фильтровать текущий список " +
                 "ноутбуков введите 'next'. Если выбор окончен введите 'finish'");
         String chat = insert.next().toLowerCase();
         if (chat.equals("next".toLowerCase())) {
-            productSorting(newSet, product);
+            productSorting(filtredProducts, product);
         } else if (chat.equals("start".toLowerCase())) {
             showCollection(allProducts, allProducts);
         } else if (chat.equals("finish".toLowerCase())) {
-            System.out.println("Количество ноутбуков по вашему запросу: " + newSet.size() + "шт.\n");
+            for (Product it : product) {
+                    System.out.println(it);
+            }
+            System.out.println("\nКоличество ноутбуков по вашему запросу: " + filtredProducts.size() + "шт.");
             return;
         } else {
             System.out.println("Введите команду правильно");
-            stepNext(insert, newSet, product, allProducts);
+            stepNext(insert, filtredProducts, product, allProducts);
         }
         return;
     }
